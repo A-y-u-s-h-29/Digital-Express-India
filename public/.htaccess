@@ -1,0 +1,22 @@
+RewriteEngine On
+RewriteBase /
+
+# ===============================
+# 1️⃣ Force www → non-www
+# ===============================
+RewriteCond %{HTTP_HOST} ^www\.digitalexpressindia\.com$ [NC]
+RewriteRule ^(.*)$ https://digitalexpressindia.com/$1 [R=301,L]
+
+# ===============================
+# 2️⃣ Redirect old /home → /
+# ===============================
+RewriteRule ^home/?$ / [R=301,L]
+
+# ===============================
+# 3️⃣ React SPA Routing (VERY IMPORTANT)
+# ===============================
+RewriteRule ^index\.html$ - [L]
+
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule . /index.html [L]
