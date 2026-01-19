@@ -34,11 +34,12 @@ function Navbar({ isHomePage = false }) {
       navColor: 'from-blue-500 to-cyan-400',
       href: '/'
     },
+    
     { 
-      title: 'PROJECTS', 
-      number: '02',
+      title: 'CARRERS', 
+      number: '03',
       navColor: 'from-green-500 to-emerald-400',
-      href: '/projects'
+      href: '/careers'
     },
     servicesData,
   ];
@@ -309,47 +310,16 @@ function Navbar({ isHomePage = false }) {
 
   return (
     <>
-      {/* Add SEO Schema Markup for Navigation */}
-      <script type="application/ld+json">
-        {JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "SiteNavigationElement",
-          "name": "Digital Express India Navigation",
-          "url": "https://digitalexpressindia.com/",
-          "mainEntity": menuItems.map((item, index) => ({
-            "@type": "ListItem",
-            "position": index + 1,
-            "name": item.title,
-            "url": `https://digitalexpressindia.com${item.href}`,
-            "description": item.title === 'SERVICES' ? 'Web development, digital marketing, and design services' : `${item.title} page of Digital Express India`
-          }))
-        })}
-      </script>
-
       {/* Main Navbar */}
       <nav 
-        className={`fixed top-4 lg:top-4 left-2 right-2 lg:left-4 lg:right-4 z-[9999] transition-all duration-300 ${isScrolled ? 'shadow-xl bg-black backdrop-blur-sm rounded-full' : ''}`}
-        role="navigation"
-        aria-label="Main navigation"
-        itemScope
-        itemType="https://schema.org/SiteNavigationElement"
+        className={`fixed top-4 lg:top-4 left-2 right-2 lg:left-4 lg:right-4 z-[9999] transition-all duration-300 ${isScrolled ? 'shadow-xl bg-black backdrop-blur-sm rounded-full' : ''}`} // Changed z-50 to z-[9999]
       >
         <div className={`w-full py-1 lg:px-8 lg:py-1 ${isHomePage ? 'bg-transparent' : 'bg-black'} rounded-full transition-all duration-300 ${isScrolled ? 'scale-[0.98]' : ''}`}>
           <div className="flex items-center justify-between">
             <div className="flex items-center">
-              <img 
-                src="/logo.jpg" 
-                className="h-15 w-15 lg:h-19 lg:w-19 rounded-full" 
-                alt="Digital Express India Logo"
-                itemProp="logo"
-                loading="eager"
-                width="76"
-                height="76"
-              />
+              <img src="/logo.jpg" className="h-15 w-15 lg:h-19 lg:w-19 rounded-full" alt="Logo"/>
               <div className="flex flex-col">
-                <span className="text-white font-bold text-md lg:text-lg tracking-wider exo">
-                  Digital Express<sup className="text-xs">®</sup>
-                </span>
+                <span className="text-white font-bold text-md lg:text-lg tracking-wider exo">Digital Express<sup className="text-xs">®</sup></span>
                 <span className="text-gray-300 text-md exo tracking-widest">India</span>
               </div>
             </div>
@@ -362,26 +332,18 @@ function Navbar({ isHomePage = false }) {
                     className="relative"
                     onMouseEnter={() => item.hasDropdown && handleMouseEnter(item.title)}
                     onMouseLeave={handleMouseLeave}
-                    itemProp="mainEntity"
-                    itemScope
-                    itemType="https://schema.org/ListItem"
                   >
                     <a 
                       href={item.href} 
                       className={`text-gray-300 font-medium tracking-wide hover:text-white magnet transition-colors duration-300 bg-[#383838] px-5 py-2 rounded-full ${item.title === 'HOME' ? 'text-white' : ''} inline-flex items-center justify-center min-w-[100px]`}
                       onClick={(e) => handleDesktopServicesClick(e, item)}
-                      itemProp="url"
-                      aria-label={`Navigate to ${item.title}`}
-                      aria-haspopup={item.hasDropdown ? "true" : "false"}
-                      aria-expanded={activeDropdown === item.title ? "true" : "false"}
                     >
-                      <span className="text-center" itemProp="name">
+                      <span className="text-center">
                         {item.title}
                         {item.hasDropdown && (
-                          <span className="ml-2 text-xs" aria-hidden="true">▼</span>
+                          <span className="ml-2 text-xs">▼</span>
                         )}
                       </span>
-                      <meta itemProp="position" content={item.number} />
                     </a>
 
                     {/* SERVICES DROPDOWN - RIGHT SIDE STYLE */}
@@ -390,17 +352,14 @@ function Navbar({ isHomePage = false }) {
                         className="fixed top-15 left-0 right-10 h-[80vh] z-[9998]"
                         onMouseEnter={() => handleMouseEnter(item.title)}
                         onMouseLeave={handleMouseLeave}
-                        role="menu"
-                        aria-label={`${item.title} submenu`}
                       >
                         <div className="absolute top-0 right-0 h-full w-[85%] max-w-[1000px] bg-white shadow-2xl">
                           {/* Close Button */}
                           <button 
                             onClick={() => setActiveDropdown(null)}
                             className="absolute top-6 right-6 w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors z-10"
-                            aria-label="Close services menu"
                           >
-                            <svg className="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                            <svg className="w-5 h-5 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                             </svg>
                           </button>
@@ -418,12 +377,9 @@ function Navbar({ isHomePage = false }) {
                                       className={`p-2 rounded-lg cursor-pointer transition-all duration-200 ${activeSubDropdown === service.id ? 'bg-blue-50 border-l-2 border-blue-500' : 'bg-gray-50 hover:bg-gray-100'}`}
                                       onMouseEnter={() => handleSubMouseEnter(service.id)}
                                       onClick={(e) => handleServiceLinkClick(service.id, e)}
-                                      role="menuitem"
-                                      aria-label={`View ${service.name} services`}
                                     >
                                       <div className="flex items-center">
-                                        <div className={`w-3 h-3 rounded-full mr-3 ${index % 5 === 0 ? 'bg-blue-500' : index % 5 === 1 ? 'bg-green-500' : index % 5 === 2 ? 'bg-purple-500' : index % 5 === 3 ? 'bg-orange-500' : 'bg-pink-500'}`} 
-                                             aria-hidden="true"></div>
+                                        <div className={`w-3 h-3 rounded-full mr-3 ${index % 5 === 0 ? 'bg-blue-500' : index % 5 === 1 ? 'bg-green-500' : index % 5 === 2 ? 'bg-purple-500' : index % 5 === 3 ? 'bg-orange-500' : 'bg-pink-500'}`}></div>
                                         <h3 className="text-lg font-bold text-gray-900">{service.name}</h3>
                                       </div>
                                     </div>
@@ -440,7 +396,7 @@ function Navbar({ isHomePage = false }) {
                                       <div className="h-full flex items-center justify-center">
                                         <div className="text-center">
                                           <div className="w-16 h-16 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                                            <svg className="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                            <svg className="w-8 h-8 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                                             </svg>
                                           </div>
@@ -456,8 +412,7 @@ function Navbar({ isHomePage = false }) {
                                       {/* Service Header */}
                                       <div className="mb-6">
                                         <div className="flex items-center mb-3">
-                                          <div className={`w-4 h-4 rounded-full ${item.subServices.findIndex(s => s.id === activeSubDropdown) % 5 === 0 ? 'bg-blue-500' : item.subServices.findIndex(s => s.id === activeSubDropdown) % 5 === 1 ? 'bg-green-500' : item.subServices.findIndex(s => s.id === activeSubDropdown) % 5 === 2 ? 'bg-purple-500' : item.subServices.findIndex(s => s.id === activeSubDropdown) % 5 === 3 ? 'bg-orange-500' : 'bg-pink-500'} mr-3`} 
-                                               aria-hidden="true"></div>
+                                          <div className={`w-4 h-4 rounded-full ${item.subServices.findIndex(s => s.id === activeSubDropdown) % 5 === 0 ? 'bg-blue-500' : item.subServices.findIndex(s => s.id === activeSubDropdown) % 5 === 1 ? 'bg-green-500' : item.subServices.findIndex(s => s.id === activeSubDropdown) % 5 === 2 ? 'bg-purple-500' : item.subServices.findIndex(s => s.id === activeSubDropdown) % 5 === 3 ? 'bg-orange-500' : 'bg-pink-500'} mr-3`}></div>
                                           <h2 className="text-2xl font-bold text-gray-900">{service.name}</h2>
                                         </div>
                                         <p className="text-gray-600 ml-7">{service.description}</p>
@@ -475,12 +430,9 @@ function Navbar({ isHomePage = false }) {
                                                 e.preventDefault();
                                                 handleSubserviceLinkClick(service.id, subservice.id, e);
                                               }}
-                                              role="menuitem"
-                                              aria-label={`View ${subservice.name} details`}
                                             >
                                               <div className="flex items-start mb-2">
-                                                <div className="w-2 h-2 rounded-full bg-blue-500 mt-1.5 mr-2 flex-shrink-0" 
-                                                     aria-hidden="true"></div>
+                                                <div className="w-2 h-2 rounded-full bg-blue-500 mt-1.5 mr-2 flex-shrink-0"></div>
                                                 <h4 className="text-base font-semibold text-gray-900 group-hover:text-blue-600">
                                                   {subservice.name}
                                                 </h4>
@@ -500,7 +452,7 @@ function Navbar({ isHomePage = false }) {
                                 {!activeSubDropdown && (
                                   <div className="h-full flex flex-col items-center justify-center text-center">
                                     <div className="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mb-6">
-                                      <svg className="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                      <svg className="w-12 h-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
                                       </svg>
                                     </div>
@@ -525,9 +477,6 @@ function Navbar({ isHomePage = false }) {
                 <button 
                   onClick={handleMenuClick}
                   className="px-2 lg:px-5 py-2 text-white text-md font-medium rounded-full transition-all duration-300 shadow-lg hover:shadow-xl magnet"
-                  aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-                  aria-expanded={isMenuOpen ? "true" : "false"}
-                  aria-controls="mobile-menu"
                 >
                   <AnimatedButton text={isMenuOpen ? "CLOSE" : "☰ MENU"} />
                 </button>
@@ -542,18 +491,12 @@ function Navbar({ isHomePage = false }) {
       {/* MOBILE MENU OVERLAY - ONLY FOR MOBILE */}
       <div 
         ref={menuOverlayRef}
-        className="fixed inset-0 z-[9998] hidden items-end justify-end px-4 md:hidden"
-        id="mobile-menu"
-        role="dialog"
-        aria-label="Mobile navigation menu"
-        aria-modal="true"
-        aria-hidden={!isMenuOpen}
+        className="fixed inset-0 z-[9998] hidden items-end justify-end px-4 md:hidden" // Increased z-index to 9998
       >
         {/* Backdrop that closes menu on click */}
         <div 
           className="absolute inset-0 bg-black/80 backdrop-blur-sm"
           onClick={handleMenuClick}
-          aria-hidden="true"
         />
         
         {/* Menu Content */}
@@ -562,16 +505,14 @@ function Navbar({ isHomePage = false }) {
           style={{
             transformOrigin: 'bottom right'
           }}
-          onClick={(e) => e.stopPropagation()}
-          role="document"
+          onClick={(e) => e.stopPropagation()} // Prevent click from closing menu
         >
           {/* Close Button */}
           <button 
             onClick={handleMenuClick}
-            className="absolute right-6 top-6 w-10 h-10 rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors z-10 close-btn"
-            aria-label="Close menu"
+            className="absolute right-6 top-6 w-10 h-10  rounded-full bg-gray-100 hover:bg-gray-200 flex items-center justify-center transition-colors z-10 close-btn"
           >
-            <svg className="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <svg className="w-6 h-6 text-gray-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
             </svg>
           </button>
@@ -582,9 +523,6 @@ function Navbar({ isHomePage = false }) {
                 <div 
                   key={index}
                   className="menu-item group relative block w-full"
-                  role="menuitem"
-                  tabIndex={0}
-                  onKeyPress={(e) => e.key === 'Enter' && handleOverlayItemClick(item)}
                 >
                   <div 
                     className="flex items-center justify-between cursor-pointer"
@@ -594,40 +532,35 @@ function Navbar({ isHomePage = false }) {
                       <h3 className="text-black font-extrabold text-4xl lg:text-6xl exo tracking-tight opacity-90 group-hover:opacity-100 transition-all duration-500 flex items-center">
                         <span>{item.title}</span>
                         {item.hasDropdown && (
-                          <span className={`ml-4 text-2xl transform transition-transform duration-300 ${activeOverlayItem === item.title ? 'rotate-90' : ''}`}
-                                aria-hidden="true">
+                          <span className={`ml-4 text-2xl transform transition-transform duration-300 ${activeOverlayItem === item.title ? 'rotate-90' : ''}`}>
                             ›
                           </span>
                         )}
                       </h3>
                     </div>
                     
-                    <div className="text-gray-500 text-2xl lg:text-3xl font-light group-hover:text-black transition-colors duration-500"
-                         aria-hidden="true">
+                    <div className="text-gray-500 text-2xl lg:text-3xl font-light group-hover:text-black transition-colors duration-500">
                       ({item.number})
                     </div>
                   </div>
 
                   {/* Mobile Services Dropdown */}
                   {item.hasDropdown && activeOverlayItem === item.title && (
-                    <div className="submenu overflow-hidden mt-4" role="menu" aria-label={`${item.title} submenu`}>
+                    <div className="submenu overflow-hidden  mt-4">
                       <div className="border-l-2 border-gray-300 pl-1 pb-6">
-                        <h4 className="text-black font-bold text-xl mb-4" id="mobile-services-heading">Our Services</h4>
+                        <h4 className="text-black font-bold text-xl mb-4">Our Services</h4>
                         
                         {/* Mobile Services List */}
-                        <div className="space-y-4 max-h-[50vh] overflow-y-auto pr-2" role="list">
+                        <div className="space-y-4 max-h-[50vh] overflow-y-auto pr-2">
                           {item.subServices.map((service, index) => (
-                            <div key={service.id} className="pb-4 border-b border-gray-100 last:border-0" role="listitem">
+                            <div key={service.id} className="pb-4 border-b border-gray-100 last:border-0">
                               {/* Service Header */}
                               <div 
                                 className="cursor-pointer mb-2"
                                 onClick={(e) => handleServiceLinkClick(service.id, e)}
-                                tabIndex={0}
-                                onKeyPress={(e) => e.key === 'Enter' && handleServiceLinkClick(service.id, e)}
                               >
                                 <div className="flex items-center mb-2">
-                                  <div className={`w-2 h-2 rounded-full ${index % 5 === 0 ? 'bg-blue-500' : index % 5 === 1 ? 'bg-green-500' : index % 5 === 2 ? 'bg-purple-500' : index % 5 === 3 ? 'bg-orange-500' : 'bg-pink-500'} mr-3`}
-                                       aria-hidden="true"></div>
+                                  <div className={`w-2 h-2 rounded-full ${index % 5 === 0 ? 'bg-blue-500' : index % 5 === 1 ? 'bg-green-500' : index % 5 === 2 ? 'bg-purple-500' : index % 5 === 3 ? 'bg-orange-500' : 'bg-pink-500'} mr-3`}></div>
                                   <h5 className="text-black font-bold text-base flex-1">{service.name}</h5>
                                 </div>
                                 <p className="text-gray-600 text-xs ml-5 mb-3">{service.description}</p>
@@ -635,19 +568,16 @@ function Navbar({ isHomePage = false }) {
                               
                               {/* Subservices - 2 Columns */}
                               {service.subservices && service.subservices.length > 0 && (
-                                <div className="ml-5" role="list">
+                                <div className="ml-5">
                                   <div className="grid grid-cols-2 gap-2">
                                     {service.subservices.map((subservice) => (
                                       <div
                                         key={subservice.id}
                                         className="cursor-pointer p-2 bg-gray-50 hover:bg-blue-50 rounded border border-gray-200 hover:border-blue-300"
                                         onClick={(e) => handleSubserviceLinkClick(service.id, subservice.id, e)}
-                                        tabIndex={0}
-                                        onKeyPress={(e) => e.key === 'Enter' && handleSubserviceLinkClick(service.id, subservice.id, e)}
-                                        role="listitem"
                                       >
                                         <div className="flex items-center">
-                                          <div className="w-1 h-1 rounded-full bg-gray-400 mr-2" aria-hidden="true"></div>
+                                          <div className="w-1 h-1 rounded-full bg-gray-400 mr-2"></div>
                                           <span className="text-xs font-medium text-gray-800 truncate">
                                             {subservice.name}
                                           </span>

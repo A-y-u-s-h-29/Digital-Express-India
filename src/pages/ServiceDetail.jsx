@@ -316,6 +316,7 @@ const ServiceDetail = () => {
               </div>
               <p className="text-gray-700 text-sm sm:text-base leading-relaxed">
                 {subservice.description}
+                {subservice.price}
               </p>
             </div>
 
